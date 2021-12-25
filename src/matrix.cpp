@@ -74,11 +74,34 @@ void Matrix::swapRows(int i1, int i2)
     swapRows(matrix_m[i1], matrix_m[i2]);
 }
 
-void Matrix::scaleRow(int row, num_type scalar)
+void Matrix::scaleRow(row_t &row, num_type scalar) const
 {
     // TODO(Sefik-Palazoglu) Add range check here
     for (int col = 0; col < maxCol_m; ++col)
-        matrix_m[row][col] *= scalar;
+        row[col] *= scalar;
+}
+
+void Matrix::scaleRow(int row, num_type scalar)
+{
+    scaleRow(matrix_m[row], scalar);
+}
+
+Matrix::row_t Matrix::scaleRowCopy(const row_t &row, num_type scalar) const
+{
+    row_t result{row};
+    scaleRow(result, scalar);
+    return result;
+}
+
+void Matrix::addRows(row_t &row1, const row_t &row2)
+{
+    for (int col = 0; col < maxCol_m; ++col)
+        row1[col] += row2[col];
+}
+
+void Matrix::addRows(int row1, int row2)
+{
+    addRows(matrix_m[row1], matrix_m[row2]);
 }
 
 bool Matrix::normalizeRowWRTCol(int row, int col)
@@ -89,4 +112,16 @@ bool Matrix::normalizeRowWRTCol(int row, int col)
     
     scaleRow(row, 1 / matrix_m[row][col]);
     return true;
+}
+
+bool Matrix::pivot(int row, int col)
+{
+    // TODO(Sefik-Palazoglu) Add range check here
+    if (matrix_m[row][col] == 0)
+        return false;
+    
+    this->normalizeRowWRTCol(row, col);
+    for (int otherRow = 0; otherRow < maxRow_m; ++otherRow)
+        if (otherRow != row)
+            addRows(matrix_m[otherRow], scaleRowCopy(matrix_m[row], -matrix_m[otherRow][col]));
 }
