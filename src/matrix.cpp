@@ -31,7 +31,11 @@ Matrix::Matrix(std::ifstream &in)
     {
         matrix_m.push_back(row_t(maxCol_m));
         for (size_t col = 0; col < maxCol_m; ++col)
+        {
             in >> matrix_m[row][col];
+            // all quotients must be canonicalized this is requested by gmp library
+            matrix_m[row][col].canonicalize();
+        }
     }
 
     /* TODO(Sefik-Palazoglu) make these asserts */
