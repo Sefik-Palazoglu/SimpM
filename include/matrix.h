@@ -38,6 +38,7 @@ public:
 
     /**
      * @brief display matrix on given output stream
+     * augmented part of the matrix is displayed with a "| " prefix
      * 
      * @param out output stream to display matrix
      */
