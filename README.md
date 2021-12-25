@@ -1,2 +1,2 @@
-# Simple-Simplex
+# SimpM
 A Code Base for Matrix operations in C++
