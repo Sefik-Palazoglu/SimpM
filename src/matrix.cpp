@@ -124,4 +124,6 @@ bool Matrix::pivot(int row, int col)
     for (int otherRow = 0; otherRow < maxRow_m; ++otherRow)
         if (otherRow != row)
             addRows(matrix_m[otherRow], scaleRowCopy(matrix_m[row], -matrix_m[otherRow][col]));
+    
+    return true;
 }
