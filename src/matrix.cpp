@@ -81,10 +81,12 @@ void Matrix::scaleRow(int rowIndex, num_type scalar)
         matrix_m[rowIndex][col] *= scalar;
 }
 
-bool Matrix::normalizeRowWRTCol(int row, int col)
+bool Matrix::normalizeRowWRTCol(int rowIndex, int colIndex)
 {
-    if (matrix_m[row][col] == 0)
+    // TODO(Sefik-Palazoglu) Add range check here
+    if (matrix_m[rowIndex][colIndex] == 0)
         return false;
     
-    scaleRow(row, 1 / matrix_m[row][col]);
+    scaleRow(rowIndex, 1 / matrix_m[rowIndex][colIndex]);
+    return true;
 }
