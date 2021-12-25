@@ -69,7 +69,20 @@ public:
      */
     void scaleRow(int rowIndex, num_type scalar);
 
-    // bool norm_row_wrt_col(int row, int col);
+    /**
+     * @brief normalizes a row wrt an element of the row
+     * makes M[row][col] 1
+     * multiplies all elements of the row with 1 / M[row][col]
+     * 
+     * Can fail if M[row][col] is 0,
+     * in this case, return false and don't do anything
+     * return true otherwise
+     * 
+     * @param row index of row to be normalized
+     * @param col index of element to be respected
+     * @returns success state
+     */
+    bool normalizeRowWRTCol(int row, int col);
 };
 
 #endif /* _MATRIX_H_ */

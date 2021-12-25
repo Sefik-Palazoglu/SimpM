@@ -80,3 +80,11 @@ void Matrix::scaleRow(int rowIndex, num_type scalar)
     for (int col = 0; col < maxCol_m; ++col)
         matrix_m[rowIndex][col] *= scalar;
 }
+
+bool Matrix::normalizeRowWRTCol(int row, int col)
+{
+    if (matrix_m[row][col] == 0)
+        return false;
+    
+    scaleRow(row, 1 / matrix_m[row][col]);
+}
