@@ -64,14 +64,14 @@ public:
      * @brief scale a row by a scalar
      * multiply the row with scalar
      * 
-     * @param rowIndex index of the row
+     * @param row index of the row
      * @param scalar the number to multiply with
      */
-    void scaleRow(int rowIndex, num_type scalar);
+    void scaleRow(int row, num_type scalar);
 
     /**
-     * @brief normalizes a row wrt an element of the row
-     * makes M[row][col] 1
+     * @brief normalizes a row wrt row[col]
+     * makes M[row][col] 1 by
      * multiplies all elements of the row with 1 / M[row][col]
      * 
      * Can fail if M[row][col] is 0,
@@ -80,9 +80,13 @@ public:
      * 
      * @param row index of row to be normalized
      * @param col index of element to be respected
-     * @returns success state
+     * @returns Can fail if M[row][col] is 0,
+     * in this case, return false and don't do anything
+     * return true otherwise
      */
     bool normalizeRowWRTCol(int row, int col);
+
+    //bool pivot(int )
 };
 
 #endif /* _MATRIX_H_ */

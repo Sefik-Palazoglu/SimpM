@@ -74,19 +74,19 @@ void Matrix::swapRows(int i1, int i2)
     swapRows(matrix_m[i1], matrix_m[i2]);
 }
 
-void Matrix::scaleRow(int rowIndex, num_type scalar)
+void Matrix::scaleRow(int row, num_type scalar)
 {
     // TODO(Sefik-Palazoglu) Add range check here
     for (int col = 0; col < maxCol_m; ++col)
-        matrix_m[rowIndex][col] *= scalar;
+        matrix_m[row][col] *= scalar;
 }
 
-bool Matrix::normalizeRowWRTCol(int rowIndex, int colIndex)
+bool Matrix::normalizeRowWRTCol(int row, int col)
 {
     // TODO(Sefik-Palazoglu) Add range check here
-    if (matrix_m[rowIndex][colIndex] == 0)
+    if (matrix_m[row][col] == 0)
         return false;
     
-    scaleRow(rowIndex, 1 / matrix_m[rowIndex][colIndex]);
+    scaleRow(row, 1 / matrix_m[row][col]);
     return true;
 }
