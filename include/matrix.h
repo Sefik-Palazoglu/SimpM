@@ -23,6 +23,14 @@ private:
     bool augmented_m;
     matrix_t matrix_m;
 
+    /**
+     * @brief swaps two rows of the matrix
+     * 
+     * @param r1 first row
+     * @param r2 second row
+     */
+    void swapRows(row_t &r1, row_t &r2);
+
 public:
     /**
      * @brief Read from external file and construct the matrix
@@ -43,6 +51,25 @@ public:
      * @param out output stream to display matrix
      */
     void show(std::ostream &out) const;
+
+    /**
+     * @brief swaps two rows of the matrix by index
+     * 
+     * @param i1 first row's index
+     * @param i2 second row's index
+     */
+    void swapRows(int i1, int i2);
+
+    /**
+     * @brief scale a row by a scalar
+     * multiply the row with scalar
+     * 
+     * @param rowIndex index of the row
+     * @param scalar the number to multiply with
+     */
+    void scaleRow(int rowIndex, num_type scalar);
+
+    // bool norm_row_wrt_col(int row, int col);
 };
 
 #endif /* _MATRIX_H_ */

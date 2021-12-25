@@ -43,15 +43,36 @@ Matrix::Matrix(std::ifstream &in)
 
 void Matrix::show(std::ostream &out) const
 {
-    for (int row = 0; row < matrix_m.size(); ++row)
+    for (int row = 0; row < maxRow_m; ++row)
     {
-        for (int col = 0; col < matrix_m[0].size(); ++col)
+        for (int col = 0; col < maxCol_m; ++col)
         {
             if ((0 < augmented_m) && (col == maxCol_m - 1))
+                // if at the last col and augmented, put |
                 out << "| " << matrix_m[row][col] << '\t';
             else
+                // else put normally
                 out << matrix_m[row][col] << '\t';
         }
         out << "\n";
     }
+}
+
+void Matrix::swapRows(row_t &r1, row_t &r2)
+{
+    for (int col = 0; col < maxCol_m; col++)
+        r1[col].swap(r2[col]);
+}
+
+void Matrix::swapRows(int i1, int i2)
+{
+    // TODO(Sefik-Palazoglu) Add range check here
+    swapRows(matrix_m[i1], matrix_m[i2]);
+}
+
+void Matrix::scaleRow(int rowIndex, num_type scalar)
+{
+    // TODO(Sefik-Palazoglu) Add range check here
+    for (int col = 0; col < maxCol_m; ++col)
+        matrix_m[rowIndex][col] *= scalar;
 }
