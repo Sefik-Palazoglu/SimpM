@@ -22,7 +22,6 @@
  * including initialization, display, addition, multiplication...
  */
 
-#include <iostream>
 #include "matrix.h"
 
 Matrix::Matrix(std::ifstream &in)
@@ -114,8 +113,6 @@ bool Matrix::normalizeRowWRTCol(int row, int col, Matrix &comatrix)
     
     scaleRow(row, 1 / scalar);
     comatrix.scaleRow(row, 1 / scalar);
-    std::cout << "in normalize\n";
-    comatrix.show(std::cout);
     return true;
 }
 
@@ -151,8 +148,6 @@ bool Matrix::pivot(int row, int col, Matrix &comatrix)
         return false;
     
     this->normalizeRowWRTCol(row, col, comatrix);
-    std::cout << "in pivot\n";
-    comatrix.show(std::cout);
     for (int otherRow = 0; otherRow < maxRow_m; ++otherRow)
         if (otherRow != row)
         {
