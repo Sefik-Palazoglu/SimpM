@@ -50,6 +50,8 @@ private:
      */
     void scaleRow(row_t &row, num_type scalar) const;
 
+    bool normalizeRowWRTCol(int row, int col, Matrix &comatrix);
+
 public:
     /**
      * @brief Read from external file and construct the matrix

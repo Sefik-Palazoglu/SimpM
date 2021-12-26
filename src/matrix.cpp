@@ -22,6 +22,7 @@
  * including initialization, display, addition, multiplication...
  */
 
+#include <iostream>
 #include "matrix.h"
 
 Matrix::Matrix(std::ifstream &in)
@@ -104,6 +105,19 @@ void Matrix::addRows(int row1, int row2)
     addRows(matrix_m[row1], matrix_m[row2]);
 }
 
+bool Matrix::normalizeRowWRTCol(int row, int col, Matrix &comatrix)
+{
+    // TODO(Sefik-Palazoglu) Add range check here
+    if (matrix_m[row][col] == 0)
+        return false;
+    
+    scaleRow(row, 1 / matrix_m[row][col]);
+    comatrix.scaleRow(row, 1 / matrix_m[row][col]);
+    std::cout << "in normalize\n";
+    comatrix.show(std::cout);
+    return true;
+}
+
 bool Matrix::normalizeRowWRTCol(int row, int col)
 {
     // TODO(Sefik-Palazoglu) Add range check here
@@ -124,6 +138,26 @@ bool Matrix::pivot(int row, int col)
     for (int otherRow = 0; otherRow < maxRow_m; ++otherRow)
         if (otherRow != row)
             addRows(matrix_m[otherRow], scaleRowCopy(matrix_m[row], -matrix_m[otherRow][col]));
+    
+    return true;
+}
+
+
+bool Matrix::pivot(int row, int col, Matrix &comatrix)
+{
+    // TODO(Sefik-Palazoglu) Add range check here
+    if (matrix_m[row][col] == 0)
+        return false;
+    
+    this->normalizeRowWRTCol(row, col, comatrix);
+    std::cout << "in pivot\n";
+    comatrix.show(std::cout);
+    for (int otherRow = 0; otherRow < maxRow_m; ++otherRow)
+        if (otherRow != row)
+        {
+            addRows(matrix_m[otherRow], scaleRowCopy(matrix_m[row], -matrix_m[otherRow][col]));
+            comatrix.addRows(comatrix.matrix_m[otherRow], scaleRowCopy(comatrix.matrix_m[row], -matrix_m[otherRow][col]));
+        }
     
     return true;
 }
