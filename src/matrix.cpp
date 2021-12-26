@@ -108,11 +108,12 @@ void Matrix::addRows(int row1, int row2)
 bool Matrix::normalizeRowWRTCol(int row, int col, Matrix &comatrix)
 {
     // TODO(Sefik-Palazoglu) Add range check here
-    if (matrix_m[row][col] == 0)
+    num_type scalar = matrix_m[row][col];
+    if (scalar == 0)
         return false;
     
-    scaleRow(row, 1 / matrix_m[row][col]);
-    comatrix.scaleRow(row, 1 / matrix_m[row][col]);
+    scaleRow(row, 1 / scalar);
+    comatrix.scaleRow(row, 1 / scalar);
     std::cout << "in normalize\n";
     comatrix.show(std::cout);
     return true;
@@ -155,8 +156,9 @@ bool Matrix::pivot(int row, int col, Matrix &comatrix)
     for (int otherRow = 0; otherRow < maxRow_m; ++otherRow)
         if (otherRow != row)
         {
-            addRows(matrix_m[otherRow], scaleRowCopy(matrix_m[row], -matrix_m[otherRow][col]));
-            comatrix.addRows(comatrix.matrix_m[otherRow], scaleRowCopy(comatrix.matrix_m[row], -matrix_m[otherRow][col]));
+            num_type scalar = -matrix_m[otherRow][col];
+            addRows(matrix_m[otherRow], scaleRowCopy(matrix_m[row], scalar));
+            addRows(comatrix.matrix_m[otherRow], scaleRowCopy(comatrix.matrix_m[row], scalar));
         }
     
     return true;
